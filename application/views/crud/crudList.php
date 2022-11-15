@@ -175,7 +175,7 @@
 		var isAdd=Boolean("<?=$this->isAdd?>");
 		var isEdit=Boolean("<?=$this->isEdit?>");
 		var isDel=Boolean("<?=$this->isDel?>");
-		var isDetail=Boolean("<?=$this->isDetail?>");
+		var isPrint=Boolean("<?=$this->isPrint?>");
 		
 		var column=JSON.parse('<?=$this->column?>');
 		column.push({
@@ -183,7 +183,7 @@
 			width : "100px",
 			searchable : false,
 			sortable : false,
-			"defaultContent": getButtonGroup(isDel, isEdit, isDetail),
+			"defaultContent": getButtonGroup(isDel, isEdit, isPrint),
 		});
 		</script>
 		<script src="<?php echo base_url('Metro/dist/assets/js/custom/utilities/crud.js'); ?>"></script>
@@ -192,6 +192,12 @@
 			crud.run();
 		});
 		</script>
+		
+		<?php 
+		foreach($this->addView as $addv){
+			$this->load->view($addv);
+		}
+		?>
 		
 	</body>
 	<!--end::Body-->

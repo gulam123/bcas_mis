@@ -56,8 +56,8 @@ class UserRole extends crud {
 				"data"=>"is_print",
 			),
 		));
-		$this->load->model("M_UserLevel");
-		$dataLevel=$this->M_UserLevel->GetLookUp();
+		$this->load->model("M_userLevel");
+		$dataLevel=$this->M_userLevel->GetLookUp();
 		$this->lookUpLevelUser = "";
 		foreach($dataLevel["data"] as $row){
 			$this->lookUpLevelUser .= "<option value='".$row["level_user"]."'>".$row["label"]."</option>";
@@ -66,7 +66,7 @@ class UserRole extends crud {
 	
     public function index()
     {
-        $this->load->view('user/UserRoleForm');
+        $this->load->view('user/userRoleForm');
     }
 	
     public function DataTable()

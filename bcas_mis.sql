@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 29, 2022 at 04:52 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.2.28
+-- Host: localhost
+-- Generation Time: Nov 15, 2022 at 09:49 AM
+-- Server version: 10.5.15-MariaDB-0+deb11u1
+-- PHP Version: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,6 +24,52 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_ganttchart`
+--
+
+CREATE TABLE `tbl_ganttchart` (
+  `id` int(11) NOT NULL,
+  `projek` text NOT NULL,
+  `deskripsi` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_ganttchart`
+--
+
+INSERT INTO `tbl_ganttchart` (`id`, `projek`, `deskripsi`) VALUES
+(2, 'Demo1', 'Percobaan 1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ganttchart_item`
+--
+
+CREATE TABLE `tbl_ganttchart_item` (
+  `id` int(11) NOT NULL,
+  `projek_id` int(11) NOT NULL,
+  `text` text NOT NULL,
+  `start_date` date NOT NULL,
+  `duration` int(11) NOT NULL,
+  `progress` decimal(11,1) NOT NULL,
+  `open` text NOT NULL,
+  `parent` int(11) NOT NULL,
+  `priority` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_ganttchart_item`
+--
+
+INSERT INTO `tbl_ganttchart_item` (`id`, `projek_id`, `text`, `start_date`, `duration`, `progress`, `open`, `parent`, `priority`) VALUES
+(3, 2, 'Projek bikin web', '2022-11-15', 8, '0.2', 'true', 0, '1'),
+(4, 2, 'Task #1', '2022-11-17', 3, '0.5', '', 3, '1'),
+(6, 2, 'Task Edit#2', '2022-11-16', 5, '0.4', '', 3, '2');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_menu`
 --
 
@@ -33,8 +78,8 @@ CREATE TABLE `tbl_menu` (
   `label` text NOT NULL,
   `url` text NOT NULL,
   `icon` text NOT NULL,
-  `urutan` int(11) NOT NULL,
-  `parent_id` int(11) NOT NULL,
+  `urutan` int(11) NOT NULL DEFAULT 1,
+  `parent_id` int(11) NOT NULL DEFAULT 0,
   `status` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -63,7 +108,7 @@ INSERT INTO `tbl_menu` (`id`, `label`, `url`, `icon`, `urutan`, `parent_id`, `st
 (18, 'User Level', 'UserLevel', '<span class=\"bullet bullet-dot\"></span>', 18, 17, 'active'),
 (19, 'User Management', 'User', '<span class=\"bullet bullet-dot\"></span>', 19, 17, 'active'),
 (20, 'User Role', 'UserRole', '<span class=\"bullet bullet-dot\"></span>', 20, 17, 'active'),
-(21, '', '', '', 0, 0, ''),
+(21, 'Gantt Chart', 'GanttChart', '<span class=\"bullet bullet-dot\"></span>', 1, 2, 'active'),
 (22, '', '', '', 0, 0, ''),
 (23, '', '', '', 0, 0, ''),
 (24, '', '', '', 0, 0, '');
@@ -93,7 +138,7 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`id`, `username`, `token`, `password`, `date_login`, `login_by`, `pass_desc`, `date_created`, `email`, `level_user`, `status`) VALUES
-(1, 'admin', '$2y$10$Xbk8V9cEWbq6SkCqdetaJeH30n1VoVWJ.J7R/Tc5Raax6Z.V.b2Um', '21232f297a57a5a743894a0e4a801fc3', '2022-10-29', 'AMS', '', '2022-10-27', 'admin@email.com', 'kadiv', 'active');
+(1, 'admin', 'expired', '21232f297a57a5a743894a0e4a801fc3', '2022-11-14', 'Logout', '', '2022-10-27', 'admin@email.com', 'kadiv', 'active');
 
 -- --------------------------------------------------------
 
@@ -158,11 +203,24 @@ INSERT INTO `tbl_user_role` (`id`, `user_level_id`, `menu_id`, `is_view`, `is_cr
 (86, 1, 17, 1, 1, 1, 1, 1, ''),
 (87, 1, 18, 1, 1, 1, 1, 1, ''),
 (88, 1, 19, 1, 1, 1, 1, 1, ''),
-(89, 1, 20, 1, 1, 1, 1, 1, '');
+(89, 1, 20, 1, 1, 1, 1, 1, ''),
+(90, 1, 21, 1, 1, 1, 1, 1, '');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `tbl_ganttchart`
+--
+ALTER TABLE `tbl_ganttchart`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_ganttchart_item`
+--
+ALTER TABLE `tbl_ganttchart_item`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_menu`
@@ -193,6 +251,18 @@ ALTER TABLE `tbl_user_role`
 --
 
 --
+-- AUTO_INCREMENT for table `tbl_ganttchart`
+--
+ALTER TABLE `tbl_ganttchart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tbl_ganttchart_item`
+--
+ALTER TABLE `tbl_ganttchart_item`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `tbl_menu`
 --
 ALTER TABLE `tbl_menu`
@@ -214,7 +284,7 @@ ALTER TABLE `tbl_user_level`
 -- AUTO_INCREMENT for table `tbl_user_role`
 --
 ALTER TABLE `tbl_user_role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

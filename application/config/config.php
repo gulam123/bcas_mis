@@ -23,7 +23,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/react/';
+//$config['base_url'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+//$config['base_url'] = 'https://2b01-158-140-182-125.ap.ngrok.io/react/';
+//$config['base_url'] = 'http://cce8-158-140-182-125.ap.ngrok.io/react/react/';
+$config['base_url'] = 'http://192.168.1.7/react/';
 // $config['base_url'] = 'http://10.125.13.18/react/';
 
 /*

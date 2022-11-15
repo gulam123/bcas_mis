@@ -21,6 +21,8 @@ class crud extends CI_Controller {
 	var $isDel=false;
 	var $isPrint=false;
 	
+	var $addView=array();
+	
     public function __construct()
 	{
 		parent::__construct();

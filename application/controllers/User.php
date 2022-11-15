@@ -46,8 +46,8 @@ class User extends crud {
 				"data"=>"date_created",
 			),
 		));
-		$this->load->model("M_UserLevel");
-		$dataLevel=$this->M_UserLevel->GetLookUp();
+		$this->load->model("M_userLevel");
+		$dataLevel=$this->M_userLevel->GetLookUp();
 		$this->lookUpLevelUser = "";
 		foreach($dataLevel["data"] as $row){
 			$this->lookUpLevelUser .= "<option value='".$row["level_user"]."'>".$row["label"]."</option>";
